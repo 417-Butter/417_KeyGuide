@@ -1,0 +1,22 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Logs
+*.log
+
+# Build files
+dist/
+build/
+*.exe
+*.spec
+
+# Local config
+config/
+
+# Temp files
+*.tmp
+
+# OS generated files
+.DS_Store
+Thumbs.db
