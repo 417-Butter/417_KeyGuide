@@ -3,7 +3,7 @@ __pycache__/
 *.pyc
 
 # Logs
-*.log
+*.log　
 
 # Build files
 dist/
