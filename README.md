@@ -11,7 +11,7 @@ PCソフトの使い方を覚えたい方、チュートリアル動画を投稿
 
 <br>
 
-## 🎬 参考動画
+## 🎬 参考動画（YouTube）
 
 [![417 KeyGuide 紹介動画](https://img.youtube.com/vi/QOG6Y9uRVkA/maxresdefault.jpg)](https://www.youtube.com/watch?v=QOG6Y9uRVkA)
 
