@@ -111,14 +111,14 @@ class NoScrollSpinBox(QSpinBox):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
-        self.setFixedWidth(90)
+        self.setFixedWidth(140)
     def wheelEvent(self, event): event.ignore()
 
 class NoScrollDoubleSpinBox(QDoubleSpinBox):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
-        self.setFixedWidth(90)
+        self.setFixedWidth(140)
     def wheelEvent(self, event): event.ignore()
 
 class NoScrollSlider(QSlider):
@@ -1220,7 +1220,7 @@ class ColorOpacityControl(QWidget):
         self.layout = QHBoxLayout(self); self.layout.setContentsMargins(0, 0, 0, 0)
         self.btn = QPushButton(label_text); self.btn.clicked.connect(self.pick_color); self.btn.setFixedWidth(140) 
         self.preview = QLabel(); self.preview.setFixedSize(24, 24); self.preview.setFrameStyle(QFrame.Shape.Box | QFrame.Shadow.Plain); self.preview.setAutoFillBackground(True)
-        self.sb_opacity = NoScrollSpinBox(); self.sb_opacity.setRange(0, 100); self.sb_opacity.setFixedWidth(75) 
+        self.sb_opacity = NoScrollSpinBox(); self.sb_opacity.setRange(0, 100); self.sb_opacity.setFixedWidth(100) 
         self.slider = NoScrollSlider(Qt.Orientation.Horizontal); self.slider.setRange(0, 100); self.slider.setFixedWidth(150)
         self.slider.setStyleSheet("QSlider::groove:horizontal { border: 1px solid #444444; height: 4px; background: #444444; border-radius: 2px; } QSlider::sub-page:horizontal { background: #dddddd; border-radius: 2px; } QSlider::handle:horizontal { background: #ffffff; border: 1px solid #999999; width: 12px; height: 12px; margin: -4px 0; border-radius: 6px; } QSlider::handle:horizontal:hover { background: #ffffff; border-color: #ffffff; }")
         self.slider.valueChanged.connect(self.sb_opacity.setValue); self.sb_opacity.valueChanged.connect(self.slider.setValue)
@@ -1669,8 +1669,10 @@ class SettingsDialog(QDialog):
         self.chk_desc_shadow = QCheckBox(config.tr("ui.app.chk_shadow", "影を有効化")); self.chk_desc_shadow.toggled.connect(lambda v: config.set("desc_shadow_enabled", v)); self.register_widget("desc_shadow_enabled", self.chk_desc_shadow, tab_name); form_desc.addRow(self.chk_desc_shadow)
         self.add_color_op(form_desc, "desc_shadow_color", config.tr("ui.app.col_shadow", "影色"), tab_name); sb_ds_x = NoScrollSpinBox(); sb_ds_x.setRange(-20, 20); self._attach_validator(sb_ds_x, "desc_shadow_offset_x", tab_name); sb_ds_y = NoScrollSpinBox(); sb_ds_y.setRange(-20, 20); self._attach_validator(sb_ds_y, "desc_shadow_offset_y", tab_name)
         form_desc.addRow(config.tr("ui.app.offset", "  Offset X/Y:"), self.create_hbox([sb_ds_x, sb_ds_y], add_stretch=True)); self.add_separator(form_desc)
+        
         self.chk_desc_outline = QCheckBox(config.tr("ui.app.chk_outline", "縁取りを有効化")); self.chk_desc_outline.toggled.connect(lambda v: config.set("desc_outline_enabled", v)); self.register_widget("desc_outline_enabled", self.chk_desc_outline, tab_name); form_desc.addRow(self.chk_desc_outline)
         sb_do_w = NoScrollSpinBox(); self._attach_validator(sb_do_w, "desc_outline_width", tab_name); form_desc.addRow(config.tr("ui.app.width", "  太さ:"), sb_do_w); self.add_color_op(form_desc, "desc_outline_color", config.tr("ui.app.col_outline", "縁色"), tab_name); lay.addWidget(grp_desc)
+        
         grp_sep = QGroupBox(config.tr("ui.app.grp_sep", "区切り線")); form_sep = QFormLayout(grp_sep)
         self.chk_sep = QCheckBox(config.tr("ui.app.chk_sep", "線を引く")); self.chk_sep.toggled.connect(lambda v: config.set("separator_enabled", v)); self.register_widget("separator_enabled", self.chk_sep, tab_name); form_sep.addRow(self.chk_sep)
         self.add_color_op(form_sep, "separator_color", config.tr("ui.app.col_sep", "線の色"), tab_name)
@@ -1693,11 +1695,11 @@ class SettingsDialog(QDialog):
         self.chk_cheat = QCheckBox(config.tr("ui.cheat.enable", "チートシートを有効化")); self.chk_cheat.toggled.connect(lambda v: config.set("cheat_sheet_enabled", v)); self.register_widget("cheat_sheet_enabled", self.chk_cheat, tab_name); form.addRow(self.chk_cheat)
         form.addRow(QLabel(config.tr("ui.cheat.note", "※単押しで「ウィンドウ表示」、長押しで「全画面表示」します。"))); form.addRow(QLabel("<hr>"))
         self.add_section(form, config.tr("ui.cheat.sec_act", "【動作設定】"), space_height=0) 
-        self.txt_cheat_key = QLineEdit(config.get("cheat_sheet_key")); self.txt_cheat_key.setPlaceholderText(config.tr("ui.cheat.placeholder", "例: F1, Alt, Shift")); self.txt_cheat_key.setFixedWidth(60) 
+        self.txt_cheat_key = QLineEdit(config.get("cheat_sheet_key")); self.txt_cheat_key.setPlaceholderText(config.tr("ui.cheat.placeholder", "例: F1, Alt, Shift")); self.txt_cheat_key.setFixedWidth(140) 
         self.txt_cheat_key.editingFinished.connect(lambda: config.set("cheat_sheet_key", self.txt_cheat_key.text())); self.register_widget("cheat_sheet_key", self.txt_cheat_key, tab_name); form.addRow(config.tr("ui.cheat.trigger", "トリガーキー:"), self.txt_cheat_key)
         self.sb_cheat_hold = NoScrollSpinBox(); self.sb_cheat_hold.setRange(100, 3000); self._attach_validator(self.sb_cheat_hold, "cheat_sheet_hold_ms", tab_name); form.addRow(config.tr("ui.cheat.hold", "長押し判定時間 (ms):"), self.sb_cheat_hold)
         self.add_section(form, config.tr("ui.cheat.sec_com", "【表示設定(共通)】"))
-        self.cmb_align = QComboBox(); self.cmb_align.addItems([config.tr("ui.cheat.align_l", "左揃え"), config.tr("ui.cheat.align_r", "右揃え")]); self.cmb_align.setFixedWidth(100) 
+        self.cmb_align = QComboBox(); self.cmb_align.addItems([config.tr("ui.cheat.align_l", "左揃え"), config.tr("ui.cheat.align_r", "右揃え")]); self.cmb_align.setFixedWidth(140) 
         self.cmb_align.currentIndexChanged.connect(lambda: config.set("cheat_sheet_key_align", self.cmb_align.currentIndex())); self.register_widget("cheat_sheet_key_align", self.cmb_align, tab_name); form.addRow(config.tr("ui.cheat.align", "キー列の配置:"), self.cmb_align)
         self.sb_spacing = NoScrollSpinBox(); self.sb_spacing.setRange(0, 200); self._attach_validator(self.sb_spacing, "cheat_sheet_spacing", tab_name); form.addRow(config.tr("ui.cheat.spacing", "キーと説明文間の余白:"), self.sb_spacing)
         self.add_section(form, config.tr("ui.cheat.sec_win", "【表示設定(ウィンドウモード)】"))
@@ -1762,8 +1764,8 @@ class SettingsDialog(QDialog):
         form.addRow(lbl_corrupt)
         
         # Helpリンク
-        help_url = "https://github.com/417-Butter/417_KeyGuide/blob/main/README.md"
-        lbl_help = QLabel(f"Help: <a href='{help_url}' style='color: #4da6ff;'>{help_url}</a>")
+        help_url = "https://github.com/417-Butter/417_KeyGuide/wiki"
+        lbl_help = QLabel(f"Wiki: <a href='{help_url}' style='color: #4da6ff;'>{help_url}</a>")
         lbl_help.setOpenExternalLinks(True)
         form.addRow(lbl_help)
         
