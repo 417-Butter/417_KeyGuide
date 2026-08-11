@@ -1,0 +1,19 @@
+[Pythonで417_KeyGuide.pyをexe化するときのコマンド]
+１．417_KeyGuide.pyが入ってるフォルダを右クリック→ターミナルで開く
+２．以下をコピペ
+python -m PyInstaller --noconsole --clean --onefile --icon=icon.ico --add-data "icon.ico;." --add-data "language;language" 417_KeyGuide.py
+ーーー
+※動作テスト用（エラー確認のためにコンソールを出す）
+python -m PyInstaller --clean --onefile --icon=icon.ico --add-data "icon.ico;." --add-data "language;language" 417_KeyGuide.py
+
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+[Python EXE Build Command（417_KeyGuide）]
+1. Right-click the folder containing `417_KeyGuide.py` → Open in Terminal
+2. Copy and paste the following command:
+python -m PyInstaller --noconsole --clean --onefile --icon=icon.ico --add-data "icon.ico;." --add-data "language;language" 417_KeyGuide.py
+ーーー
+※ For testing (shows the console to check for errors):**
+python -m PyInstaller --clean --onefile --icon=icon.ico --add-data "icon.ico;." --add-data "language;language" 417_KeyGuide.py
